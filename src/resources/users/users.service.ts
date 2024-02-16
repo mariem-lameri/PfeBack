@@ -51,10 +51,11 @@ export class UsersService {
         password: 'securePassword', // Make sure to hash this password
         roles: ['SUPER_ADMIN'],
       };
+      // super admin
       // Hash password (assuming create method does this)
       //await this.create(superAdminData);
       console.log('Super Admin user created');
     }
   }
 
-}
+} 
