@@ -54,8 +54,8 @@ export class UsersService {
       const superAdminData: CreateUserDto = {
         firstname: 'Super',
         lastname: 'Admin',
-        email: 'superadmin@example.com', // Use real email and secure password
-        password: 'securePassword', // Make sure to hash this password
+        email: 'superadmin@example.com', 
+        password: 'admin', 
         roles: ['SUPER_ADMIN'],
       };
       // super admin
