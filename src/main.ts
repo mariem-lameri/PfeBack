@@ -5,8 +5,8 @@ import { UsersService } from './resources/users/users.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const usersService = app.get(UsersService);
-  await usersService.ensureSuperAdminExists();
+  
+  
   
   // Créer une configuration de document pour Swagger
   const config = new DocumentBuilder()
