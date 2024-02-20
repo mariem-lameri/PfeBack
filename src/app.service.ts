@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import * as userData from './data/default-user.json';
 import { UsersService } from './resources/users/users.service';
 import { hashPassword } from './utils/password-utils';
-
 @Injectable()
 export class AppService {
   constructor(private readonly usersService: UsersService) {}
