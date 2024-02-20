@@ -8,7 +8,6 @@ import { ProjectSchema } from './entities/project.entity';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'Project', schema: ProjectSchema }]),
-    // Ajoutez d'autres modules ici au besoin, par exemple, PassportModule ou JwtModule si vous sécurisez les endpoints au niveau du module
   ],
   controllers: [ProjectsController],
   providers: [ProjectsService],

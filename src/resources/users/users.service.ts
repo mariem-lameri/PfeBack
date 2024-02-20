@@ -7,6 +7,9 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  delete(id: string) {
+    throw new Error('Method not implemented.');
+  }
   findByEmail(email: any) {
     throw new Error('Method not implemented.');
   }
