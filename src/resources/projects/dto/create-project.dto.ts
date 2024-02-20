@@ -3,6 +3,11 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsNotEmpty, IsArray, ArrayUnique } from 'class-validator';
 
 export class CreateProjectDto {
+  
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  _id: string;
 
   @ApiProperty()
   @IsString()
@@ -17,10 +22,10 @@ export class CreateProjectDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
- clientName: string; 
+ clientId: string; 
  
   @ApiProperty()
   @IsArray()
   @ArrayUnique()
-  teamMembers: string[]; 
+  members: string[]; 
 }

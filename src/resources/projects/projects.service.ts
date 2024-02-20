@@ -1,35 +1,49 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateProjectDto } from './dto/create-project.dto';
+import { Project } from './entities/project.entity';
+import { CreateProjectDto} from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { Project } from './entities/project.entity'; 
-
 @Injectable()
 export class ProjectsService {
-  constructor(@InjectModel('Project') private readonly projectModel: Model<Project>) {}
+  deleteByName: any;
+  constructor(@InjectModel(Project.name) private projectModel: Model<Project>) {}
 
-  
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
     const newProject = new this.projectModel(createProjectDto);
     return await newProject.save();
   }
 
-
   async findAll(): Promise<Project[]> {
-    return await this.projectModel.find().populate('teamMembers').exec();
+    return await this.projectModel.find().populate('members').exec();
   }
 
-  
   async findOne(id: string): Promise<Project> {
-    return await this.projectModel.findById(id).populate('teamMembers').exec();
+    const project = await this.projectModel.findById(id).populate('members').exec();
+    if (!project) {
+      throw new NotFoundException(`Project with ID "${id}" not found`);
+    }
+    return project;
   }
 
   async update(id: string, updateProjectDto: UpdateProjectDto): Promise<Project> {
-    return await this.projectModel.findByIdAndUpdate(id, updateProjectDto, { new: true }).exec();
+    const updatedProject = await this.projectModel.findByIdAndUpdate(id, updateProjectDto, { new: true }).populate('members').exec();
+    if (!updatedProject) {
+      throw new NotFoundException(`Project with ID "${id}" not found`);
+    }
+    return updatedProject;
   }
 
-  async remove(id: string): Promise<Project> {
-    return await this.projectModel.findByIdAndDelete(id).exec();
+  async remove(id: string): Promise<void> {
+    const result = await this.projectModel.deleteOne({ _id: id }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Project with ID "${id}" not found`);
+    }
+  }
+  async removeByName(name: string): Promise<any> {
+    const result = await this.projectModel.deleteOne({ name:name }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Project with name "${name}" not found`);
+    }
   }
 }
