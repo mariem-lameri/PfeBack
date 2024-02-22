@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CustomMongooseModule } from './mongodb/mongodb.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { RoleModule } from './resources/role/role.module';
+import { ProjectsModule } from './resources/projects/projects.module';
 
 @Module({
   imports: [UsersModule,
@@ -14,7 +15,8 @@ import { RoleModule } from './resources/role/role.module';
     isGlobal: true
   }),
     AuthModule,
-    RoleModule
+    RoleModule,
+    ProjectsModule
 ],
   controllers: [AppController],
   providers: [AppService],

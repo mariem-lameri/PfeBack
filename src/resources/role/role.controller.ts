@@ -18,7 +18,6 @@ export class RoleController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   create(@Body() createRoleDto: CreateRoleDto) {
     return this.roleService.create(createRoleDto);
   }
@@ -29,7 +28,6 @@ export class RoleController {
   @ApiResponse({ status: 401, description: 'Non autorisé.' }) 
   @ApiResponse({ status: 403, description: 'Accès refusé.' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   findAll() {
     return this.roleService.findAll();
   }
@@ -47,7 +45,6 @@ export class RoleController {
   @ApiResponse({ status: 404, description: 'Rôle non trouvé.' })
   @ApiResponse({ status: 403, description: 'Accès refusé.' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
     return this.roleService.update(id, updateRoleDto);
   }
@@ -56,11 +53,10 @@ export class RoleController {
   @ApiOperation({summary:'suppression du role par id'})
   @ApiResponse({ status: 200, description: 'Rôle supprimé avec succès.' })
   @ApiResponse({ status: 400, description: 'Requête invalide.' })
-  @ApiResponse({ status: 401, description: 'Non autorisé.' }) // Si l'authentification est nécessaire
+  @ApiResponse({ status: 401, description: 'Non autorisé.' }) 
   @ApiResponse({ status: 404, description: 'Rôle non trouvé.' })
   @ApiResponse({ status: 403, description: 'Accès refusé.' })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   delete(@Param('id') id: string) {
     this.roleService.delete(id);
     

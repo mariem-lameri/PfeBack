@@ -3,6 +3,7 @@ import { CreateRoleDto } from './create-role.dto';
 
 export class UpdateRoleDto extends PartialType(CreateRoleDto) {
 
+_id?: string;  
 name?: string;
 description?: string;
 permissions?: string[];

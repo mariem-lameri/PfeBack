@@ -46,5 +46,6 @@ export class ProjectsService {
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Project with name "${name}" not found`);
     }
+    return result;
   }
 }
