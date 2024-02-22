@@ -11,7 +11,7 @@ import { UserSchema } from '../users/entities/user.entity';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-    JwtModule.register({}),
+    JwtModule.register({signOptions: { expiresIn: '60m'},}),
 UsersModule
   ],
   providers: [AuthService, JwtService],
