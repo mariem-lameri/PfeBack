@@ -8,7 +8,7 @@ import { Role } from './entities/role.entity';
 
 
 @ApiTags('role')
-@Controller('role')
+@Controller('roles')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 

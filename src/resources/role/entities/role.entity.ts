@@ -24,6 +24,7 @@ export class Role {
   @ApiProperty()
   @Prop([String])
   permissions: string[];
+  static Admin: string[];
 }
 
 export const RoleSchema = SchemaFactory.createForClass(Role);

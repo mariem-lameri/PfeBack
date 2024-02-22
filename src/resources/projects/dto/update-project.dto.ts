@@ -4,7 +4,7 @@ import { Type } from 'class-transformer';
 
 class MemberUpdateDto {
   @IsMongoId()
-  readonly memberId: string;
+  readonly id: string;
 }
 
 export class UpdateProjectDto {

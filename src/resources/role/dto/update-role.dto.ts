@@ -2,10 +2,8 @@ import { PartialType } from '@nestjs/swagger';
 import { CreateRoleDto } from './create-role.dto';
 
 export class UpdateRoleDto extends PartialType(CreateRoleDto) {
-
-_id?: string;  
-name?: string;
-description?: string;
-permissions?: string[];
-
+  _id: string;
+  name: string;
+  description?: string;
+  permissions?: string[];
 }

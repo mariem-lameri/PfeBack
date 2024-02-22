@@ -29,8 +29,10 @@ export class AuthService {
   async login(user: SignInDto) {
     const foundUser = await this.validateUser(user)
     const payload = { email: user.email };
-    return { access_token: this.jwtService.sign(payload, {
-      secret: this.configService.get("JWT_SECRET_KEY")
-    }), me: foundUser };
+   let access_token = this.jwtService.sign(payload, {
+    secret: this.configService.get("JWT_SECRET_KEY")
+  });
+  console.log(access_token);
+    return { access_token , me: foundUser };
   }
 }
