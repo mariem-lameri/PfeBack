@@ -1,0 +1,1 @@
+export const REQUEST_EXCLUDED_PROPS = "-password -__v"

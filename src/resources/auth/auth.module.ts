@@ -4,15 +4,14 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserSchema } from '../users/entities/user.entity';
 
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: '65FCFC736969D43CFBCE06843383F2FDC99CAC07D6ECEA7D07B13934D67B14C8', // Utilisez une variable d'environnement pour votre secret en production
-      signOptions: { expiresIn: '60s' }, // Durée de vie du token
-    }),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    JwtModule.register({signOptions: { expiresIn: '60m'},}),
 UsersModule
   ],
   providers: [AuthService, JwtService],

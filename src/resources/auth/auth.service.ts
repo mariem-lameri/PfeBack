@@ -1,25 +1,38 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { SignInDto } from '../auth/sign-in.dto';
+import * as bcrypt from 'bcrypt';
+import { User } from '../users/entities/user.entity';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
+  signIn: any;
+
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService
+    @InjectModel(User.name) private userModel: Model<User>,
+    private jwtService: JwtService,
+    private configService: ConfigService
   ) {}
 
-  async signIn(
-    username: string,
-    pass: string,
-  ): Promise<{ access_token: string }> {
-    const user = await this.usersService.findOne(username);
-    if (user?.password !== pass) {
-      throw new UnauthorizedException();
+  async validateUser({ email, password }: SignInDto): Promise<User | null> {
+    const user = await this.userModel.findOne({ email }).lean();
+    if (user && await bcrypt.compare(password, user.password)) {
+      const { password, ...userData } = user;
+      return await this.userModel.findOne({ email }).select("-password").lean();
     }
-    const payload = { sub: user.lastname, username: user.firstname };
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+    return null;
+  }
+
+  async login(user: SignInDto) {
+    const foundUser = await this.validateUser(user)
+    const payload = { email: user.email };
+   let access_token = this.jwtService.sign(payload, {
+    secret: this.configService.get("JWT_SECRET_KEY")
+  });
+  console.log(access_token);
+    return { access_token , me: foundUser };
   }
 }

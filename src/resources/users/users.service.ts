@@ -3,10 +3,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from './user.schema';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  delete(id: string) {
+    throw new Error('Method not implemented.');
+  }
+  findByEmail(email: any) {
+    throw new Error('Method not implemented.');
+  }
   constructor(@InjectModel("User") private readonly userModel: Model<User>) {}
   
 
@@ -41,20 +47,18 @@ export class UsersService {
       throw new NotFoundException(`User with ID "${id}" not found`);
     }
   }
-   async ensureSuperAdminExists() {
-    const superAdminExists = await this.userModel.findOne({ role: 'SUPER_ADMIN' }).exec();
-    if (!superAdminExists) {
-      const superAdminData: CreateUserDto = {
-        firstname: 'Super',
-        lastname: 'Admin',
-        email: 'superadmin@example.com', // Use real email and secure password
-        password: 'securePassword', // Make sure to hash this password
-        roles: ['SUPER_ADMIN'],
-      };
-      // Hash password (assuming create method does this)
-      //await this.create(superAdminData);
-      console.log('Super Admin user created');
+  async findByUsername(username: string): Promise<User | undefined> {
+    const user = await this.userModel.findOne({ username }).exec();
+    if (!user) {
+      throw new NotFoundException(`User not found`);
     }
+    return user;
   }
 
-}
+  async findOneByRole(role: string): Promise<User> {
+    const user = await this.userModel.findOne({ role }).exec();
+    if (!user) null
+    return user;
+  }
+
+} 
