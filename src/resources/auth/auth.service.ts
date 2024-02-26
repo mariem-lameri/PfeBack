@@ -23,12 +23,12 @@ export class AuthService {
       const { password, ...userData } = user;
       return await this.userModel.findOne({ email }).select("-password").lean();
     }
-    return null;
+    return user;
   }
 
   async login(user: SignInDto) {
     const foundUser = await this.validateUser(user)
-    const payload = { email: user.email };
+    const payload = { userId: foundUser._id,userName:foundUser.email };
    let access_token = this.jwtService.sign(payload, {
     secret: this.configService.get("JWT_SECRET_KEY")
   });
