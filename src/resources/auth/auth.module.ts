@@ -6,6 +6,7 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from '../users/entities/user.entity';
+import { JwtStrategy } from './jwt.strategy';
 
 
 @Module({
