@@ -8,6 +8,8 @@ import { AuthModule } from './resources/auth/auth.module';
 import { RoleModule } from './resources/role/role.module';
 import { ProjectsModule } from './resources/projects/projects.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
+import { TicketsModule } from './resources/tickets/tickets.module';
+
 @Module({
   imports: [UsersModule,
     CustomMongooseModule,
@@ -16,7 +18,8 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
   }),
     AuthModule,
     RoleModule,
-    ProjectsModule
+    ProjectsModule,
+    TicketsModule
 ],
   controllers: [AppController],
   providers: [AppService],
