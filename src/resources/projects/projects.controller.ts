@@ -1,15 +1,29 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { ProjectsService } from './projects.service';
-import { CreateProjectDto } from './dto/create-project.dto'; 
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { UpdateProjectDto } from './dto/update-project.dto';
-import { RolesGuard } from '../auth/role.guard';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Roles } from '../auth/role.decorator';
 import { Role } from '../role/entities/role.entity';
+import { CreateProjectDto } from './dto/create-project.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
+import { ProjectsService } from './projects.service';
 
 @ApiTags('projects')
-@UseGuards(RolesGuard)
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
@@ -34,12 +48,12 @@ export class ProjectsController {
   @ApiOperation({ summary: 'Récupère un projet par son ID' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   findOne(@Param('id') id: string) {
-    return this.projectsService.findOne(id); 
+    return this.projectsService.findOne(id);
   }
 
   @Put(':id')
-  @ApiOperation({summary:'mise à jour du projet'})
-  @ApiResponse({ status:200, description: 'Updated.' })
+  @ApiOperation({ summary: 'mise à jour du projet' })
+  @ApiResponse({ status: 200, description: 'Updated.' })
   @ApiBearerAuth()
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
     return this.projectsService.update(id, updateProjectDto);
@@ -47,7 +61,7 @@ export class ProjectsController {
 
   @Delete(':id')
   @Roles(Role.Admin)
-  @ApiOperation({summary:'suppression du projet par id'})
+  @ApiOperation({ summary: 'suppression du projet par id' })
   @ApiResponse({ status: 404, description: 'Not found.' })
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
@@ -55,9 +69,11 @@ export class ProjectsController {
   }
   @Delete(':name')
   @Roles(Role.Admin)
-  @ApiOperation({summary:'suppression du projet par nom'})
+  @ApiOperation({ summary: 'suppression du projet par nom' })
   @ApiResponse({ status: 404, description: 'Not found.' })
-  async deleteByName(@Param('name') name: string) {
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  async removeByName(@Param('name') name: string) {
     const deleted = await this.projectsService.deleteByName(name);
     if (!deleted) {
       throw new HttpException('Project not found', HttpStatus.NOT_FOUND);
