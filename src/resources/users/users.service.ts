@@ -7,9 +7,7 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  delete(id: string) {
-    throw new Error('Method not implemented.');
-  }
+ 
   findByEmail(email: any) {
     throw new Error('Method not implemented.');
   }
@@ -41,12 +39,21 @@ export class UsersService {
     return existingUser;
   }
 
-  async remove(id: string): Promise<void> {
-    const result = await this.userModel.deleteOne({ _id: id }).exec();
-    if (result.deletedCount === 0) {
-      throw new NotFoundException(`User with ID "${id}" not found`);
+  async delete(userId: string): Promise<void> {
+    try {
+      // Find the user by ID and delete it
+      const result = await this.userModel.deleteOne({ _id: userId }).exec();
+      
+      // Check if a user was deleted
+      if (result.deletedCount === 0) {
+        throw new NotFoundException('User not found');
+      }
+    } catch (error) {
+      // Handle any errors that occur during deletion
+      throw new Error('Failed to delete user');
     }
   }
+  
   async findByUsername(username: string): Promise<User | undefined> {
     const user = await this.userModel.findOne({ username }).exec();
     if (!user) {
