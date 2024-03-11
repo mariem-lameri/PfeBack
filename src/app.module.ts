@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './resources/users/users.module';
@@ -8,6 +8,7 @@ import { AuthModule } from './resources/auth/auth.module';
 import { RoleModule } from './resources/role/role.module';
 import { ProjectsModule } from './resources/projects/projects.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
+import { Module } from '@nestjs/common/decorators/modules';
 @Module({
   imports: [UsersModule,
     CustomMongooseModule,
