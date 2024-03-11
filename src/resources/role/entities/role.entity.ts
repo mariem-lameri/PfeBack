@@ -4,8 +4,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import mongoose, { Document } from 'mongoose';
 
 
-export type RoleDocument = Role & Document;
-
 @Schema()
 export class Role {
 
@@ -30,3 +28,4 @@ export class Role {
 }
 
 export const RoleSchema = SchemaFactory.createForClass(Role);
+export type RoleDocument = Role & Document;

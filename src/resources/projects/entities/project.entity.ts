@@ -3,6 +3,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import mongoose, { Document } from 'mongoose';
 import { User } from 'src/resources/users/entities/user.entity';
+
+
 @Schema()
 export class Project extends Document {
   @ApiProperty({ type: String })
