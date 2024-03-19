@@ -22,6 +22,10 @@ export class RoleService {
     const role = await this.roleModel.findById(id).exec();
     return role || null;
   }
+  async findOneByName(name: string): Promise<Role | null> {
+    const role = await this.roleModel.findOne({ name }).exec();
+    return role || null;
+  }
 
   async update(id: string, updateRoleDto: UpdateRoleDto): Promise<Role | null> {
     const existingRole = await this.roleModel.findByIdAndUpdate(id, updateRoleDto, { new: true }).exec();
