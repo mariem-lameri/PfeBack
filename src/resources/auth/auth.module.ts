@@ -15,7 +15,7 @@ import { JwtStrategy } from './jwt.strategy';
     JwtModule.register({signOptions: { expiresIn: '60m'},}),
 UsersModule
   ],
-  providers: [AuthService, JwtService],
+  providers: [AuthService, JwtService,JwtStrategy],
   controllers: [AuthController],
   exports: [JwtModule, JwtService],
 })
