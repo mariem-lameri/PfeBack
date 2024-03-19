@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -23,13 +25,19 @@ import { RoleService } from './role.service';
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
+
   @Post()
   @ApiOperation({ summary: 'créer un nouveau role' })
   @ApiResponse({ status: 200, description: 'Le rôle a été créé avec succès.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiResponse({ status: 404, description: 'Not Found.' })
   @ApiBearerAuth()
-  create(@Body() createRoleDto: CreateRoleDto) {
+  async create(@Body() createRoleDto: CreateRoleDto) {
+    const existedRole = await this.roleService.findOneByName(
+      createRoleDto.name,
+    );
+    if (existedRole)
+      throw new HttpException('Rôle dupliqué', HttpStatus.CONFLICT);
     return this.roleService.create(createRoleDto);
   }
 
