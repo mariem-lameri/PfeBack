@@ -28,8 +28,9 @@ export class ProjectsController {
   @ApiOperation({ summary: 'Crée un nouveau projet' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   @ApiBearerAuth()
-  create(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectsService.create(createProjectDto);
+  async create(@Body() createProjectDto: CreateProjectDto) {
+    const createdProject = await this.projectsService.create(createProjectDto);
+    return await this.projectsService.findOne(createdProject.id);
   }
 
   @Get()
