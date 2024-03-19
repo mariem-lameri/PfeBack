@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
@@ -37,7 +37,7 @@ export class RoleController {
     return this.roleService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ApiOperation({summary:'mise à jour du role par id'})
   @ApiResponse({ status: 200, description: 'Rôle mis à jour avec succès.', type: Role }) 
   @ApiResponse({ status: 400, description: 'Données invalides fournies.' })

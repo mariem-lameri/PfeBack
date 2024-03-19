@@ -20,7 +20,7 @@ export class AuthController {
  async signin(@Body() signInDto: SignInDto,@Res() response: Response) {
   let foundUser= await this.authService.login(signInDto);
   if(foundUser!== null){
-    let access_token = this.jwtService.sign({ userId: foundUser._id,userName:foundUser.email }, {
+    let access_token = this.jwtService.sign({ userId: foundUser.id,userName:foundUser.email }, {
       secret: this.configService.get("JWT_SECRET_KEY")
     });
     response.status(HttpStatus.OK).json({ access_token , me: foundUser });

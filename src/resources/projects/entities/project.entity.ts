@@ -8,7 +8,7 @@ import { User } from 'src/resources/users/entities/user.entity';
 @Schema()
 export class Project extends Document {
   @ApiProperty({ type: String })
-  _id: mongoose.Types.ObjectId;
+  id: mongoose.Types.ObjectId;
 
   @ApiProperty({ })
   @Prop({ required: true })

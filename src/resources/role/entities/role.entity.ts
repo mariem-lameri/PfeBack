@@ -8,7 +8,7 @@ import mongoose, { Document } from 'mongoose';
 export class Role {
 
   @ApiProperty()
-  _id: mongoose.Types.ObjectId;
+  id: mongoose.Types.ObjectId;
   
 
   @ApiProperty()
