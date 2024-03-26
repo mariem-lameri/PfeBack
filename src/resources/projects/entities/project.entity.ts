@@ -9,7 +9,7 @@ import { User } from 'src/resources/users/entities/user.entity';
 export class Project extends Document {
   @ApiProperty({ type: String })
   @Prop({ required: true })
-  id: mongoose.Types.ObjectId;
+  projectId: mongoose.Types.ObjectId;
 
   @ApiProperty({ })
   @Prop({ required: true })
