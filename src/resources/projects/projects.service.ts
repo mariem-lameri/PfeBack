@@ -29,6 +29,7 @@ export class ProjectsService {
     if (!project) {
       throw new NotFoundException(`Project with ID "${id}" not found`);
     }
+    console.log(project.toJSON()); 
     return project;
   }
 

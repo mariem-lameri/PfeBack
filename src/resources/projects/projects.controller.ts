@@ -30,7 +30,7 @@ export class ProjectsController {
   @ApiBearerAuth()
   async create(@Body() createProjectDto: CreateProjectDto) {
     const createdProject = await this.projectsService.create(createProjectDto);
-    return await this.projectsService.findOne(createdProject.id);
+    return await this.projectsService.findOne(createdProject.id.toString());
   }
 
   @Get()
