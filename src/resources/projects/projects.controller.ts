@@ -40,27 +40,28 @@ export class ProjectsController {
     return this.projectsService.findAll();
   }
 
-  @Get(':id')
+  @Get(':projectId')
   @ApiOperation({ summary: 'Récupère un projet par son ID' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  findOne(@Param('id') id: string) {
-    return this.projectsService.findOne(id);
+  findOne(@Param('projectId') projectId: string) {
+    console.log(`Fetching project with ID: ${projectId}`);
+    return this.projectsService.findOne(projectId);
   }
 
-  @Put(':id')
+  @Put(':projectId')
   @ApiOperation({ summary: 'mise à jour du projet' })
   @ApiResponse({ status: 200, description: 'Updated.' })
   @ApiBearerAuth()
-  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+  update(@Param('projectId') id: string, @Body() updateProjectDto: UpdateProjectDto) {
     return this.projectsService.update(id, updateProjectDto);
   }
 
-  @Delete(':id')
+  @Delete(':projectId')
   // @Roles(Role.Admin)
   @ApiOperation({ summary: 'suppression du projet par id' })
   @ApiResponse({ status: 200, description: 'Deleted.' })
   @ApiBearerAuth()
-  remove(@Param('id') id: string) {
+  remove(@Param('projectId') id: string) {
     return this.projectsService.remove(id);
   }
 }

@@ -4,11 +4,7 @@ import { IsString, IsNotEmpty, IsArray, ArrayUnique } from 'class-validator';
 
 export class CreateProjectDto {
   
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  _id: string;
-
+  
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
