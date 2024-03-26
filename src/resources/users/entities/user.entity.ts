@@ -5,7 +5,7 @@ import mongoose, { Document } from 'mongoose';
 @Schema()
 export class User extends Document {
   @ApiProperty()
-  _id: mongoose.Types.ObjectId;
+  id: mongoose.Types.ObjectId;
 
 
   @Prop({ required: true })

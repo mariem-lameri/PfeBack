@@ -9,7 +9,7 @@ import { RoleModule } from './resources/role/role.module';
 import { ProjectsModule } from './resources/projects/projects.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { TicketsModule } from './resources/tickets/tickets.module';
-
+import { UserStoriesModule } from './userstory/userstory.module';
 @Module({
   imports: [UsersModule,
     CustomMongooseModule,
@@ -19,7 +19,8 @@ import { TicketsModule } from './resources/tickets/tickets.module';
     AuthModule,
     RoleModule,
     ProjectsModule,
-    TicketsModule
+    TicketsModule,
+    UserStoriesModule
 ],
   controllers: [AppController],
   providers: [AppService],

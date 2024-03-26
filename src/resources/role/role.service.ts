@@ -33,7 +33,7 @@ export class RoleService {
   }
 
   async delete(id: string): Promise<Role> {
-    return await this.roleModel.deleteOne({ _id: id }).lean();
+    return await this.roleModel.deleteOne({ id: id }).lean();
   }
 }
 

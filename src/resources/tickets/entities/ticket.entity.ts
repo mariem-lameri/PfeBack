@@ -18,7 +18,7 @@ enum TicketPriority {
 @Schema()
 export class Ticket extends Document {
   @ApiProperty({ type: String })
-  _id: mongoose.Types.ObjectId;
+  id: mongoose.Types.ObjectId;
 
   @ApiProperty({ type: String })
   @Prop({ required: true })

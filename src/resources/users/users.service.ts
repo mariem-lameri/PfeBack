@@ -42,7 +42,7 @@ export class UsersService {
   async delete(userId: string): Promise<void> {
     try {
       // Find the user by ID and delete it
-      const result = await this.userModel.deleteOne({ _id: userId }).exec();
+      const result = await this.userModel.deleteOne({ id: userId }).exec();
       
       // Check if a user was deleted
       if (result.deletedCount === 0) {

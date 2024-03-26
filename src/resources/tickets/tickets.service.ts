@@ -40,7 +40,7 @@ export class TicketsService {
   }
 
   async remove(id: string): Promise<void> {
-    const result = await this.ticketModel.deleteOne({ _id: id }).lean().exec();
+    const result = await this.ticketModel.deleteOne({ id: id }).lean().exec();
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Ticket with ID "${id}" not found`);
     }

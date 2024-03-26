@@ -29,6 +29,7 @@ export class ProjectsService {
     if (!project) {
       throw new NotFoundException(`Project with ID "${id}" not found`);
     }
+    console.log(project.toJSON()); 
     return project;
   }
 
@@ -47,7 +48,7 @@ export class ProjectsService {
   }
 
   async remove(id: string): Promise<void> {
-    const result = await this.projectModel.deleteOne({ _id: id }).exec();
+    const result = await this.projectModel.deleteOne({ id: id }).exec();
     if (result.deletedCount === 0) {
       throw new NotFoundException(`Project with ID "${id}" not found`);
     }
